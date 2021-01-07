@@ -1,7 +1,7 @@
 const { readJSON, writeJSON } = require("fs-extra");
 const { join } = require("path");
 
-const questionsPath = join(__dirname, "./services/exams/questions.json");
+const questionsPath = join(__dirname, "./services/questions/questions.json");
 const candidatesPath = join(__dirname, "./services/exams/candidates.json");
 
 const readDB = async (filePath) => {
