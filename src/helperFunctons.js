@@ -10,7 +10,12 @@ const shuffleArray = (array, len) => {
     array[curId] = array[randId];
     array[randId] = tmp;
   }
-  return array.slice(0, len);
+  let randArray = array.slice(0, len);
+  randArray.forEach((element) => {
+    element.providedAnswer = 0;
+  });
+
+  return randArray;
 };
 
 module.exports = shuffleArray;
