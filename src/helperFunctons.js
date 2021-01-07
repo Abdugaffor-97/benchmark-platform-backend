@@ -12,7 +12,7 @@ const shuffleArray = (array, len) => {
   }
   let randArray = array.slice(0, len);
   randArray.forEach((element) => {
-    element.providedAnswer = 0;
+    element.providedAnswer = null;
   });
 
   return randArray;
