@@ -1,0 +1,31 @@
+{
+  "name": "benchmark-platform-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -r dotenv/config ./src/server.js",
+    "start": "node ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abdugaffor-97/benchmark-platform-backend.git"
+  },
+  "keywords": [],
+  "author": "Abdug'affor Abdurahimov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abdugaffor-97/benchmark-platform-backend/issues"
+  },
+  "homepage": "https://github.com/Abdugaffor-97/benchmark-platform-backend#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-list-endpoints": "^5.0.0",
+    "fs-extra": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
