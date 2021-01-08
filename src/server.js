@@ -1,7 +1,7 @@
 const express = require("express");
 const listEndpoints = require("express-list-endpoints");
 const examsRoutes = require("./services/exams");
-const questionRoutes = require("./services/exams");
+const questionRoutes = require("./services/questions");
 
 const {
   notFoundHandler,
