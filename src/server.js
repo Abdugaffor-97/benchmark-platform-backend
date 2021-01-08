@@ -1,5 +1,6 @@
 const express = require("express");
 const listEndpoints = require("express-list-endpoints");
+const cors = require("cors");
 const examsRoutes = require("./services/exams");
 const questionRoutes = require("./services/questions");
 
@@ -14,6 +15,20 @@ const server = express();
 const port = process.env.PORT || 3001;
 
 server.use(express.json());
+
+const whiteList = [process.env.FE_URL];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whiteList.indexOf(origin) !== -1) {
+      // allowed
+      callback(null, true);
+    } else {
+      callback(new Error("NOT ALLOWED - CORS ISSUES"));
+    }
+  },
+};
+
+// server.use(cors(corsOptions));
 
 server.use("/exams", examsRoutes);
 server.use("/questions", questionRoutes);
