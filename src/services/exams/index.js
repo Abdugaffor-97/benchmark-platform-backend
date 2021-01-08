@@ -12,24 +12,20 @@ examsRouter.post("/:id/answer", async (req, res, next) => {
 
     if (exam) {
       exams = exams.filter((cand) => cand._id !== req.params.id);
-      const providedAnswers = req.body;
+      const providedAnswer = req.body;
 
       let score = 0;
-      providedAnswers.forEach((pvAns) => {
-        exam.questions[pvAns.question].providedAnswer = pvAns.answer;
-        console.log(
-          exam.questions[pvAns.question].answers.findIndex(
-            (ans) => ans.isCorrect
-          )
-        );
-        if (
-          exam.questions[pvAns.question].answers.findIndex(
-            (ans) => ans.isCorrect
-          ) === pvAns.answer
-        ) {
-          score += 1;
-        }
-      });
+      exam.questions[providedAnswer.question].providedAnswer =
+        providedAnswer.answer;
+
+      if (
+        exam.questions[providedAnswer.question].answers.findIndex(
+          (ans) => ans.isCorrect
+        ) === providedAnswer.answer
+      ) {
+        score += 1;
+      }
+
       exam.score = score;
 
       exams.push(exam);
@@ -38,6 +34,12 @@ examsRouter.post("/:id/answer", async (req, res, next) => {
     } else {
       res.status(404).send("Not Found");
     }
+
+    exam.questions.forEach((question) => {
+      question.answers.forEach((ans) => {
+        delete ans.isCorrect;
+      });
+    });
     res.send(exam);
   } catch (error) {
     next(error);
@@ -61,6 +63,11 @@ examsRouter.post("/start", async (req, res, next) => {
     exams.push(exam);
     await writeExams(exams);
 
+    exam.questions.forEach((question) => {
+      question.answers.forEach((ans) => {
+        delete ans.isCorrect;
+      });
+    });
     res.send(exam);
   } catch (error) {
     next(error);
