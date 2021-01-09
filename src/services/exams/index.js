@@ -7,12 +7,11 @@ const examsRouter = express.Router();
 
 examsRouter.post("/:id/answer", async (req, res, next) => {
   try {
+    const providedAnswer = req.body;
     let exams = await getExams();
     const exam = exams.find((cand) => cand._id === req.params.id);
-
     if (exam) {
       exams = exams.filter((cand) => cand._id !== req.params.id);
-      const providedAnswer = req.body;
 
       let score = 0;
       exam.questions[providedAnswer.question].providedAnswer =
@@ -30,7 +29,10 @@ examsRouter.post("/:id/answer", async (req, res, next) => {
 
       exams.push(exam);
       await writeExams(exams);
-      // console.log(exam.questions);
+      if (providedAnswer.question + 1 === exam.questions.length) {
+        res.send(exam.questions);
+        console.log(exam.questions);
+      }
     } else {
       res.status(404).send("Not Found");
     }
