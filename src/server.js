@@ -28,7 +28,7 @@ const corsOptions = {
   },
 };
 
-// server.use(cors(corsOptions));
+server.use(cors(corsOptions));
 
 server.use("/exams", examsRoutes);
 server.use("/questions", questionRoutes);
