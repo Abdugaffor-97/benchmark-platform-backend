@@ -30,8 +30,8 @@ examsRouter.post("/:id/answer", async (req, res, next) => {
       exams.push(exam);
       await writeExams(exams);
       if (providedAnswer.question + 1 === exam.questions.length) {
-        res.send(exam.questions);
-        console.log(exam.questions);
+        res.send({ questions: exam.questions, score: score });
+        console.log({ questions: exam.questions, score: score });
       }
     } else {
       res.status(404).send("Not Found");
