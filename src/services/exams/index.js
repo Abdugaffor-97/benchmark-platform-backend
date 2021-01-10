@@ -13,7 +13,6 @@ examsRouter.post("/:id/answer", async (req, res, next) => {
     if (exam) {
       exams = exams.filter((cand) => cand._id !== req.params.id);
 
-      let score = 0;
       exam.questions[providedAnswer.question].providedAnswer =
         providedAnswer.answer;
 
@@ -22,16 +21,15 @@ examsRouter.post("/:id/answer", async (req, res, next) => {
           (ans) => ans.isCorrect
         ) === providedAnswer.answer
       ) {
-        score += 1;
+        console.log(exam.score);
+        exam.score += 1;
       }
-
-      exam.score = score;
 
       exams.push(exam);
       await writeExams(exams);
       if (providedAnswer.question + 1 === exam.questions.length) {
-        res.send({ questions: exam.questions, score: score });
-        console.log({ questions: exam.questions, score: score });
+        res.send({ questions: exam.questions, score: exam.score });
+        console.log({ questions: exam.questions, score: exam.score });
       }
     } else {
       res.status(404).send("Not Found");
@@ -59,6 +57,7 @@ examsRouter.post("/start", async (req, res, next) => {
       _id: uniqid(),
       examDate: new Date(),
       questions: randQuestions,
+      score: 0,
     };
 
     const exams = await getExams();
