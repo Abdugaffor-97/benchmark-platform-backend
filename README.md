@@ -75,3 +75,7 @@ It should not be possible to answer the same question twice.
 > Handle Time Cap
 
 Start exam can now receive duration as parameter. The total of questions randomly picked for that exam should not exceed the specified duration
+
+.env config
+
+FE_URL=http://localhost:3000
